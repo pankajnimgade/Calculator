@@ -76,6 +76,9 @@ class MainActivity : SuperMain() {
             R.id.MainActivity_9_button -> {
                 inputDisplayTextView.text = "9"
             }
+            R.id.MainActivity_dot_period_button -> {
+                inputDisplayTextView.text = "."
+            }
             R.id.MainActivity_delete_clear_button -> {
                 inputDisplayTextView.text = ""
             }
@@ -90,6 +93,9 @@ class MainActivity : SuperMain() {
             }
             R.id.MainActivity_multiply_button -> {
                 inputDisplayTextView.text = "x"
+            }
+            R.id.MainActivity_equals_button -> {
+                inputDisplayTextView.text = "="
             }
         }
     }
