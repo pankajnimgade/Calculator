@@ -3,12 +3,36 @@ package pk.nimgade.calculator
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var historyRecyclerView: RecyclerView
+    private lateinit var inputDisplayTextView: TextView
+
+
+    private lateinit var _0_Button: Button
+    private lateinit var _1_Button: Button
+    private lateinit var _2_Button: Button
+    private lateinit var _3_Button: Button
+    private lateinit var _4_Button: Button
+    private lateinit var _5_Button: Button
+    private lateinit var _6_Button: Button
+    private lateinit var _7_Button: Button
+    private lateinit var _8_Button: Button
+    private lateinit var _9_Button: Button
+
+    private lateinit var clearButton: Button
+    private lateinit var plusButton: Button
+    private lateinit var minusButton: Button
+    private lateinit var divideButton: Button
+    private lateinit var multiplyButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
