@@ -13,6 +13,7 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
 
         <item name="android:textColor">@color/button_text</item>
+        <item name="android:onClick">inputCollector</item>
 
     </style>
 
