@@ -23,6 +23,8 @@
         android:id="@+id/MainActivity_7_button"
         style="@style/ButtonKeyPad"
         android:text="7"
+        app:layout_column="0"
+        app:layout_row="0"
         grid:layout_columnWeight="1"
         grid:layout_gravity="fill"
         grid:layout_rowWeight="1" />
