@@ -7,7 +7,7 @@ import java.util.ArrayList
 /**
  * Created by Pankaj Nimgade on 12/21/2017.
  */
-class MainActivityModelTest12{
+class MainActivityModelTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
