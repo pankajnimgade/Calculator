@@ -13,7 +13,7 @@ class MainActivityModel : IMainActivityModel {
         private var lastMemberItem: MemberItem? = null
     }
 
-    fun addCharacter(character: String) {
+    override fun addCharacter(character: String) {
         if (!character.isNullOrEmpty() && character.length == 1) {
             if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]"))) {
 

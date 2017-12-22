@@ -6,5 +6,6 @@ package pk.nimgade.calculator.model;
 
 public interface IMainActivityModel {
 
+    void addCharacter(String character);
 
 }
