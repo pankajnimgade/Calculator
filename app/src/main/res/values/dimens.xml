@@ -1,4 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="textSize_Keypad_Button">15dp</dimen>
+    <dimen name="textSize_Keypad_Button">25dp</dimen>
 </resources>

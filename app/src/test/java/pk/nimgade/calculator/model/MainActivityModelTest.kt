@@ -1,8 +1,8 @@
 package pk.nimgade.calculator.model
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Pankaj Nimgade on 12/21/2017.
@@ -11,6 +11,22 @@ class MainActivityModelTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun checkEquationAtEveryStep() {
+
+        val listOfInputText = arrayListOf<String>("12-", "123*", "61+00", "/745", "18*")
+
+        for (text in listOfInputText){
+            val model:IMainActivityModel = MainActivityModel()
+            for (character in text){
+                model.addCharacter(character.toString())
+                println(model.equationFromInputText)
+            }
+
+            println("\n#########\n")
+        }
     }
 
     @Test
@@ -31,7 +47,7 @@ class MainActivityModelTest {
                 model.addCharacter(_char + "")
             }
             model.compute()
-            model.printElements()
+            println(model.equationFromInputText)
             println()
         }
     }

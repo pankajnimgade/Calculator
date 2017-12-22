@@ -86,7 +86,7 @@ class MainActivityModel : IMainActivityModel {
         }
     }
 
-    fun getCharacterType(@NonNull character: Char): MemberType {
+    private fun getCharacterType(@NonNull character: Char): MemberType {
         var memberType: MemberType = MemberType.NUMBER
         when {
             character.isDigit() -> {
@@ -112,22 +112,23 @@ class MainActivityModel : IMainActivityModel {
         return memberItemList.size
     }
 
-    fun printElements() {
+    override fun getEquationFromInputText(): String? {
+        val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
-                print("${memberItem.memberString} $ ")
+                equationFromInputText.append("${memberItem.memberString} ")
             }
         }
-        println()
+        return equationFromInputText.toString()
     }
 
-    fun clear() {
+    override fun clear() {
         lastMemberItem = null
         memberItemList.clear()
     }
 
 
-    fun compute() {
+    override fun compute() {
         lastMemberItem?.let {
             if (lastMemberItem!!.memberType == MemberType.NUMBER) {
                 memberItemList.add(it)
