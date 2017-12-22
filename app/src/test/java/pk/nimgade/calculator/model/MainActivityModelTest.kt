@@ -16,14 +16,15 @@ class MainActivityModelTest {
     @Test
     fun checkEquationAtEveryStep() {
 
-        val listOfInputText = arrayListOf<String>("12-", "123*", "61+00", "/745", "18*")
+        val listOfInputText = arrayListOf("12-", "123*", "61+00", "/745", "18*")
 
         for (text in listOfInputText){
             val model:IMainActivityModel = MainActivityModel()
             for (character in text){
                 model.addCharacter(character.toString())
-                println(model.equationFromInputText)
             }
+            val output =model.equationFromInputText
+            println(output)
 
             println("\n#########\n")
         }

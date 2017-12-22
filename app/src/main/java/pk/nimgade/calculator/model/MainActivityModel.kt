@@ -16,70 +16,61 @@ class MainActivityModel : IMainActivityModel {
     override fun addCharacter(character: String) {
         if (!character.isNullOrEmpty() && character.length == 1) {
             if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]"))) {
-
                 val currentCharacterMemberType = getCharacterType(character[0])
+                if (memberItemList.isEmpty()) {
+                    lastMemberItem = null
+                } else {
+                    lastMemberItem = memberItemList.last()
+                }
                 when {
                     lastMemberItem == null -> {
-                        // when @code{lastMemberItem} is empty for the first time.
-                        // create one, so it will be added to @code{memberItemList}
+                        // last is empty (null)
+                        // create a MemberItem
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
+                        memberItemList.add(lastMemberItem as MemberItem)
                     }
                     ((lastMemberItem != null) &&
                             (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
                             (currentCharacterMemberType == MemberType.NUMBER)) -> {
-                        // when last @code{lastMemberItem} is number we can append next number to it
+                        // last    is number
+                        // current is number
                         (lastMemberItem as MemberItem).memberString += character
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
                             currentCharacterMemberType != MemberType.NUMBER -> {
-                        // when next (current) MemberType is not a number we need to add the last MemberItem to list
-                        // and create a new MemberItem and assign it as last MemberItem
-                        memberItemList.add((lastMemberItem as MemberItem))
+                        // last  is number
+                        // current  is ( '/', '*', '-', '+' )
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
+                        memberItemList.add((lastMemberItem as MemberItem))
                     }
-
-                //
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
                             (lastMemberItem as MemberItem).memberType == MemberType.SUBTRACTION &&
                             currentCharacterMemberType == MemberType.NUMBER -> {
-                        // when last MemberType is not a number or subtraction we need to add the last MemberItem to list
-                        // and create a new MemberItem and assign it as last MemberItem
+                        // last is subtraction
+                        // current is number
                         (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
                         (lastMemberItem as MemberItem).memberString += character
                     }
-                // same as below
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
                             ((lastMemberItem as MemberItem).memberType == MemberType.MULTIPLICATION ||
                                     (lastMemberItem as MemberItem).memberType == MemberType.DIVISION) &&
                             currentCharacterMemberType == MemberType.SUBTRACTION -> {
-                        // when last MemberType is not a number or subtraction we need to add the last MemberItem to list
-                        // and create a new MemberItem and assign it as last MemberItem
-
-                        memberItemList.add((lastMemberItem as MemberItem))
+                        // last is ('*' or '/')
+                        // current is ( '-' )
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
+                        memberItemList.add((lastMemberItem as MemberItem))
                     }
-                // same as below
-
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
                             (lastMemberItem as MemberItem).memberType != MemberType.SUBTRACTION &&
                             currentCharacterMemberType == MemberType.NUMBER -> {
-                        // when last MemberType is not a number or subtraction we need to add the last MemberItem to list
-                        // and create a new MemberItem and assign it as last MemberItem
-                        memberItemList.add((lastMemberItem as MemberItem))
+                        // last ( '*' , '/' )
+                        // current number
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
-                    }
-                    lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
-                            (lastMemberItem as MemberItem).memberType == MemberType.SUBTRACTION &&
-                            currentCharacterMemberType == MemberType.NUMBER -> {
-                        // when last MemberType is not a number or subtraction we need to add the last MemberItem to list
-                        // and create a new MemberItem and assign it as last MemberItem
                         memberItemList.add((lastMemberItem as MemberItem))
-                        lastMemberItem = MemberItem(currentCharacterMemberType, character)
                     }
                 }
             }
@@ -129,11 +120,7 @@ class MainActivityModel : IMainActivityModel {
 
 
     override fun compute() {
-        lastMemberItem?.let {
-            if (lastMemberItem!!.memberType == MemberType.NUMBER) {
-                memberItemList.add(it)
-            }
-        }
+
     }
 
     override fun toString(): String {
