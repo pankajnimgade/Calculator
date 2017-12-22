@@ -104,6 +104,7 @@ class MainActivityModel : IMainActivityModel {
     }
 
     override fun getEquationFromInputText(): String? {
+        checkEquationText()
         val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
@@ -119,8 +120,17 @@ class MainActivityModel : IMainActivityModel {
     }
 
 
-    override fun compute() {
-
+    private fun checkEquationText() {
+        if (memberItemList.isNotEmpty()) {
+            if (memberItemList.last().memberType != MemberType.NUMBER) {
+                memberItemList.removeAt(memberItemList.size - 1)
+            }
+        }
+        if (memberItemList.isNotEmpty()) {
+            if (memberItemList.first().memberType != MemberType.NUMBER) {
+                memberItemList.removeAt(0)
+            }
+        }
     }
 
     override fun toString(): String {

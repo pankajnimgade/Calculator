@@ -20,6 +20,7 @@ class MainActivityModelTest {
 
         for (text in listOfInputText){
             val model:IMainActivityModel = MainActivityModel()
+            println(text)
             for (character in text){
                 model.addCharacter(character.toString())
             }
@@ -47,7 +48,6 @@ class MainActivityModelTest {
             for (_char in text.toCharArray()) {
                 model.addCharacter(_char + "")
             }
-            model.compute()
             println(model.equationFromInputText)
             println()
         }
