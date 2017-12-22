@@ -8,10 +8,16 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import pk.nimgade.calculator.R
 import pk.nimgade.calculator.SuperMain
+import pk.nimgade.calculator.presenter.IMainActivityPresenter
+import javax.inject.Inject
 
 class MainActivity : SuperMain(), IMainActivityView {
 
     val TAG = "MainActivity"
+
+
+    @Inject
+    private lateinit var presenter: IMainActivityPresenter
 
     private var lastCharacter: Char? = null
 
@@ -48,6 +54,13 @@ class MainActivity : SuperMain(), IMainActivityView {
         minusButton = findViewById(R.id.MainActivity_minus_button)
         divideButton = findViewById(R.id.MainActivity_divide_button)
         multiplyButton = findViewById(R.id.MainActivity_multiply_button)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.setView(this)
     }
 
     fun inputCollector(view: View) {

@@ -1,7 +1,6 @@
 package pk.nimgade.calculator.presenter;
 
-import javax.inject.Inject;
-
+import pk.nimgade.calculator.model.IMainActivityModel;
 import pk.nimgade.calculator.view.IMainActivityView;
 
 /**
@@ -10,12 +9,17 @@ import pk.nimgade.calculator.view.IMainActivityView;
 
 public class MainActivityPresenter implements IMainActivityPresenter {
 
-    @Inject
-    public IMainActivityView iMainActivityView;
+    public IMainActivityView view;
 
-
+    private IMainActivityModel model;
 
     public MainActivityPresenter() {
+
+    }
+
+    @Override
+    public void setView(IMainActivityView iMainActivityView) {
+        this.view = iMainActivityView;
     }
 
     @Override
