@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="pk.nimgade.calculator.MainActivity"
+    tools:context="pk.nimgade.calculator.view.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <android.support.v7.widget.RecyclerView
@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@id/MainActivity_input_textView"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_input_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,10 +34,10 @@
         android:gravity="right|bottom"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintBottom_toTopOf="@id/MainActivity_horizontal_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MainActivity_history_recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/MainActivity_history_recyclerView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/MainActivity_horizontal_guideline"

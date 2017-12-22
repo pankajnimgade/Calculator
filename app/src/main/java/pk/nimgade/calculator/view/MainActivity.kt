@@ -1,4 +1,4 @@
-package pk.nimgade.calculator
+package pk.nimgade.calculator.view
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -6,8 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import pk.nimgade.calculator.R
+import pk.nimgade.calculator.SuperMain
 
-class MainActivity : SuperMain() {
+class MainActivity : SuperMain(), IMainActivityView {
+
+    val TAG = "MainActivity"
+
+    private var lastCharacter: Char? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,55 +53,55 @@ class MainActivity : SuperMain() {
     fun inputCollector(view: View) {
         when (view.id) {
             R.id.MainActivity_0_button -> {
-                inputDisplayTextView.text = "0"
+                lastCharacter = '0'
             }
             R.id.MainActivity_1_button -> {
-                inputDisplayTextView.text = "1"
+                lastCharacter = '1'
             }
             R.id.MainActivity_2_button -> {
-                inputDisplayTextView.text = "2"
+                lastCharacter = '2'
             }
             R.id.MainActivity_3_button -> {
-                inputDisplayTextView.text = "3"
+                lastCharacter = '3'
             }
             R.id.MainActivity_4_button -> {
-                inputDisplayTextView.text = "4"
+                lastCharacter = '4'
             }
             R.id.MainActivity_5_button -> {
-                inputDisplayTextView.text = "5"
+                lastCharacter = '5'
             }
             R.id.MainActivity_6_button -> {
-                inputDisplayTextView.text = "6"
+                lastCharacter = '6'
             }
             R.id.MainActivity_7_button -> {
-                inputDisplayTextView.text = "7"
+                lastCharacter = '7'
             }
             R.id.MainActivity_8_button -> {
-                inputDisplayTextView.text = "8"
+                lastCharacter = '8'
             }
             R.id.MainActivity_9_button -> {
-                inputDisplayTextView.text = "9"
+                lastCharacter = '9'
             }
             R.id.MainActivity_dot_period_button -> {
-                inputDisplayTextView.text = "."
+                lastCharacter = '.'
             }
             R.id.MainActivity_delete_clear_button -> {
-                inputDisplayTextView.text = ""
+                lastCharacter = '\u0127'
             }
             R.id.MainActivity_plus_button -> {
-                inputDisplayTextView.text = "+"
+                lastCharacter = '+'
             }
             R.id.MainActivity_minus_button -> {
-                inputDisplayTextView.text = "-"
+                lastCharacter = '-'
             }
             R.id.MainActivity_divide_button -> {
-                inputDisplayTextView.text = "/"
+                lastCharacter = '/'
             }
             R.id.MainActivity_multiply_button -> {
-                inputDisplayTextView.text = "x"
+                lastCharacter = '*'
             }
             R.id.MainActivity_equals_button -> {
-                inputDisplayTextView.text = "="
+                lastCharacter = '='
             }
         }
     }
@@ -114,5 +120,25 @@ class MainActivity : SuperMain() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun getCharacter(): Char {
+        return lastCharacter!!.toChar()
+    }
+
+    override fun setInputData(inputData: String?) {
+
+    }
+
+    override fun setOutputResult(outputResult: String?) {
+
+    }
+
+    override fun showErrorMessage(errorMessage: String?) {
+
+    }
+
+    override fun lastComputationEquation(lastComputationEquation: String?) {
+
     }
 }

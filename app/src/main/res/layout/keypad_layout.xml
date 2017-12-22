@@ -16,7 +16,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:rowCount="5"
     app:useDefaultMargins="false"
-    tools:context="pk.nimgade.calculator.MainActivity"
+    tools:context="pk.nimgade.calculator.view.MainActivity"
     tools:showIn="@layout/content_main">
 
     <Button
