@@ -30,4 +30,10 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     public void compute() {
 
     }
+
+    @Override
+    public void inputCharacter(String inputCharacter) {
+        String inputEquationDisplayText = model.addCharacter(inputCharacter);
+        view.setInputData(inputEquationDisplayText);
+    }
 }

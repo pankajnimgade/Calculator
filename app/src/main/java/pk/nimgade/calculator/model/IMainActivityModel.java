@@ -6,7 +6,7 @@ package pk.nimgade.calculator.model;
 
 public interface IMainActivityModel {
 
-    void addCharacter(String character);
+    String addCharacter(String character);
 
     String getEquationFromInputText();
 

@@ -18,7 +18,7 @@ class MainActivityModel : IMainActivityModel {
         private var lastMemberItem: MemberItem? = null
     }
 
-    override fun addCharacter(character: String) {
+    override fun addCharacter(character: String) : String? {
         if (!character.isNullOrEmpty() && character.length == 1) {
             if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]"))) {
                 val currentCharacterMemberType = getCharacterType(character[0])
@@ -80,6 +80,8 @@ class MainActivityModel : IMainActivityModel {
                 }
             }
         }
+
+        return equationFromInputText
     }
 
     private fun getCharacterType(@NonNull character: Char): MemberType {
@@ -109,7 +111,7 @@ class MainActivityModel : IMainActivityModel {
     }
 
     override fun getEquationFromInputText(): String? {
-        checkEquationText()
+//        checkEquationText()
         val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {

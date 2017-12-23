@@ -12,4 +12,6 @@ public interface IMainActivityPresenter {
 
     void compute();
 
+    void inputCharacter(String inputCharacter);
+
 }

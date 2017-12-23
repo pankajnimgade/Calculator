@@ -121,6 +121,7 @@ class MainActivity : SuperMain(), IMainActivityView {
                 lastCharacter = '='
             }
         }
+        presenter.inputCharacter(lastCharacter.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -144,7 +145,7 @@ class MainActivity : SuperMain(), IMainActivityView {
     }
 
     override fun setInputData(inputData: String?) {
-
+        inputDisplayTextView.text = inputData
     }
 
     override fun setOutputResult(outputResult: String?) {
