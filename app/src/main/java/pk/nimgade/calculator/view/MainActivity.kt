@@ -2,11 +2,13 @@ package pk.nimgade.calculator.view
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import pk.nimgade.calculator.R
+import pk.nimgade.calculator.StartUp
 import pk.nimgade.calculator.SuperMain
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
 import javax.inject.Inject
@@ -17,7 +19,7 @@ class MainActivity : SuperMain(), IMainActivityView {
 
 
     @Inject
-    private lateinit var presenter: IMainActivityPresenter
+    lateinit var presenter: IMainActivityPresenter
 
     private var lastCharacter: Char? = null
 
@@ -55,7 +57,9 @@ class MainActivity : SuperMain(), IMainActivityView {
         divideButton = findViewById(R.id.MainActivity_divide_button)
         multiplyButton = findViewById(R.id.MainActivity_multiply_button)
 
+        (application as StartUp).component.inject(this)
 
+        if (presenter == null) Log.d(TAG, ":presenter is null ") else Log.d(TAG, ":presenter ${presenter.javaClass}")
     }
 
     override fun onResume() {

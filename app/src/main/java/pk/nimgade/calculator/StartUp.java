@@ -2,6 +2,7 @@ package pk.nimgade.calculator;
 
 import android.app.Application;
 
+import pk.nimgade.calculator.dagger.DaggerMainActivityComponent;
 import pk.nimgade.calculator.dagger.MainActivityComponent;
 
 /**
@@ -16,5 +17,10 @@ public class StartUp extends Application {
     public void onCreate() {
         super.onCreate();
 
+        component = DaggerMainActivityComponent.create();
+    }
+
+    public MainActivityComponent getComponent() {
+        return component;
     }
 }

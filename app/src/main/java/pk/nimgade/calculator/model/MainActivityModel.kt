@@ -1,6 +1,7 @@
 package pk.nimgade.calculator.model
 
 import android.support.annotation.NonNull
+import javax.inject.Inject
 
 /**
  * Created by Pankaj Nimgade on 12/20/2017.
@@ -8,6 +9,10 @@ import android.support.annotation.NonNull
 class MainActivityModel : IMainActivityModel {
 
     private val memberItemList: MutableList<MemberItem> = mutableListOf()
+
+    @Inject
+    constructor()
+
 
     companion object {
         private var lastMemberItem: MemberItem? = null
