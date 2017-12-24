@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textSize_Keypad_Button">30dp</dimen>
+    <dimen name="textSize_InputEquationText">20dp</dimen>
+
 
 </resources>

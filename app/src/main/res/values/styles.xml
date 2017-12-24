@@ -17,17 +17,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="InputTextDisplay" parent="android:TextAppearance.Widget.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
-        <item name="android:clickable">false</item>
-        <item name="android:layout_margin">4dp</item>
-
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/textSize_Keypad_Button</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
-    </style>
 
     <style name="ButtonKeyPad" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">0dp</item>
@@ -43,6 +32,35 @@
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:textColor">@color/button_text</item>
         <item name="android:onClick">inputCollector</item>
+    </style>
+
+    <style name="InputTextDisplay" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:clickable">false</item>
+        <item name="android:layout_margin">4dp</item>
+
+
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/textSize_Keypad_Button</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+
+    </style>
+
+    <style name="InputEquationTextDisplay" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:clickable">false</item>
+        <item name="android:layout_margin">4dp</item>
+
+
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/textSize_InputEquationText</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:longClickable">true</item>
+
     </style>
 
 
