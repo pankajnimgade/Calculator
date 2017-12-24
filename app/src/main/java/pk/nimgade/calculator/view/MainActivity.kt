@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class MainActivity : SuperMain(), IMainActivityView {
 
-    val TAG = "MainActivity"
+    private val TAG = "MainActivity"
 
 
     @Inject
@@ -117,13 +117,13 @@ class MainActivity : SuperMain(), IMainActivityView {
             R.id.MainActivity_multiply_button -> {
                 lastCharacter = '*'
             }
-            R.id.MainActivity_equals_button -> {
-                lastCharacter = '='
-            }
         }
         presenter.inputCharacter(lastCharacter.toString())
     }
 
+    fun computeEquals(view: View){
+        presenter.compute()
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)

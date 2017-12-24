@@ -8,8 +8,8 @@ public interface IMainActivityModel {
 
     String addCharacter(String character);
 
-    String getEquationFromInputText();
-
     void clear();
+
+    void calculateOrCompute();
 
 }

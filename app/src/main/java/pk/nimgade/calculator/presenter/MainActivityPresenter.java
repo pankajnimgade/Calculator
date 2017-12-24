@@ -1,5 +1,7 @@
 package pk.nimgade.calculator.presenter;
 
+import android.util.Log;
+
 import javax.inject.Inject;
 
 import pk.nimgade.calculator.model.IMainActivityModel;
@@ -10,6 +12,8 @@ import pk.nimgade.calculator.view.IMainActivityView;
  */
 
 public class MainActivityPresenter implements IMainActivityPresenter {
+    
+    private static final String TAG = "MainActivityPresenter";
 
     public IMainActivityView view;
 
@@ -28,7 +32,8 @@ public class MainActivityPresenter implements IMainActivityPresenter {
 
     @Override
     public void compute() {
-
+        Log.d(TAG, "compute: ");
+        model.calculateOrCompute();
     }
 
     @Override
