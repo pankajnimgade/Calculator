@@ -10,6 +10,10 @@ public interface IMainActivityModel {
 
     void clear();
 
-    void calculateOrCompute();
+    String calculateOrCompute();
+
+    String getInputTextEquationBeforeComputation();
+
+    String getEquationFromInputText();
 
 }

@@ -33,7 +33,9 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     @Override
     public void compute() {
         Log.d(TAG, "compute: ");
-        model.calculateOrCompute();
+        String result = model.calculateOrCompute();
+        view.setInputData(result);
+        view.setInputEquationTextData(model.getInputTextEquationBeforeComputation());
     }
 
     @Override

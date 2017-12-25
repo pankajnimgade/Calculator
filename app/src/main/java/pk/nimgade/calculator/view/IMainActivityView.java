@@ -10,6 +10,8 @@ public interface IMainActivityView {
 
     void setInputData(String inputData);
 
+    void setInputEquationTextData(String inputData);
+
     void setOutputResult(String outputResult);
 
     void showErrorMessage(String errorMessage);

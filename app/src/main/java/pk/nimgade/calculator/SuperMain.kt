@@ -10,7 +10,8 @@ import android.widget.TextView
  */
 open class SuperMain : AppCompatActivity() {
     protected lateinit var historyRecyclerView: RecyclerView
-    protected lateinit var inputDisplayTextView: TextView
+    protected lateinit var inputOutputDisplayTextView: TextView
+    protected lateinit var inputEquationDisplayTextView: TextView
 
     protected lateinit var _0_Button: Button
     protected lateinit var _1_Button: Button

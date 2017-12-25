@@ -37,7 +37,8 @@ class MainActivity : SuperMain(), IMainActivityView {
 
     private fun initializeUI() {
         historyRecyclerView = findViewById(R.id.MainActivity_history_recyclerView)
-        inputDisplayTextView = findViewById(R.id.MainActivity_input_textView)
+        inputOutputDisplayTextView = findViewById(R.id.MainActivity_inputOutputDisplay_textView)
+        inputEquationDisplayTextView = findViewById(R.id.MainActivity_InputEquation_textView)
 
         _0_Button = findViewById(R.id.MainActivity_0_button)
         _1_Button = findViewById(R.id.MainActivity_1_button)
@@ -121,9 +122,10 @@ class MainActivity : SuperMain(), IMainActivityView {
         presenter.inputCharacter(lastCharacter.toString())
     }
 
-    fun computeEquals(view: View){
+    fun computeEquals(view: View) {
         presenter.compute()
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -144,12 +146,24 @@ class MainActivity : SuperMain(), IMainActivityView {
         return lastCharacter!!.toChar()
     }
 
+    /**
+     * Use this for the equation
+     * @param inputData for the equation
+     * */
     override fun setInputData(inputData: String?) {
-        inputDisplayTextView.text = inputData
+        inputOutputDisplayTextView.text = inputData
     }
 
+    /**
+     * Use this for output of the equation or for equation itself until computation starts
+     * @param outputResult output of the equation or for equation itself until computation starts
+     * */
     override fun setOutputResult(outputResult: String?) {
+        inputOutputDisplayTextView.text = outputResult
+    }
 
+    override fun setInputEquationTextData(inputData: String?) {
+        inputEquationDisplayTextView.text = inputData
     }
 
     override fun showErrorMessage(errorMessage: String?) {

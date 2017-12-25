@@ -13,23 +13,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/MainActivity_Equation_textView"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_InputEquation_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/MainActivity_Equation_textView"
+        android:id="@+id/MainActivity_InputEquation_textView"
         style="@style/InputEquationTextDisplay"
         android:text="Equation Input"
-        app:layout_constraintBottom_toTopOf="@+id/MainActivity_input_textView"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_inputOutputDisplay_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MainActivity_history_recyclerView" />
 
 
     <TextView
-        android:id="@+id/MainActivity_input_textView"
+        android:id="@+id/MainActivity_inputOutputDisplay_textView"
         style="@style/InputTextDisplay"
         android:fontFamily="sans-serif-condensed"
         android:gravity="right|bottom"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainActivity_Equation_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/MainActivity_InputEquation_textView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/MainActivity_horizontal_guideline"

@@ -9,9 +9,13 @@ import javax.inject.Inject
  */
 class MainActivityModel : IMainActivityModel {
 
+
+
     val TAG = "MainActivityModel"
 
     private val memberItemList: MutableList<MemberItem> = mutableListOf()
+
+     var lastInputEquationText:String? = null
 
     @Inject
     constructor()
@@ -109,15 +113,30 @@ class MainActivityModel : IMainActivityModel {
         return memberType
     }
 
-    override fun calculateOrCompute() {
-        var result: Int = 0
+    override fun calculateOrCompute(): String? {
+        var result: String? = null
         checkEquationText()
+        lastInputEquationText = getEquationFromInputText()
         if (memberItemList.isNotEmpty()) {
 
             checkMultiplication(memberItemList)
             Log.d(TAG, ": ${memberItemList.first().memberString}")
         }
+
+        if (memberItemList.isNotEmpty()) {
+            result = memberItemList.first().memberString
+        }
+        return result
     }
+
+    override fun getInputTextEquationBeforeComputation(): String? {
+        val result = ""
+        if (!lastInputEquationText.isNullOrEmpty()) {
+         return "$lastInputEquationText ="
+        }
+        return result
+    }
+
 
     private fun checkMultiplication(list: MutableList<MemberItem>) {
         val iterator = list.iterator()
@@ -127,14 +146,14 @@ class MainActivityModel : IMainActivityModel {
             val currentMemberItem = iterator.next()
             if (currentMemberItem.memberType == MemberType.MULTIPLICATION) {
                 isMultiplicationPresent = true
-              break
+                break
             }
             index++
         }
-        if (isMultiplicationPresent){
+        if (isMultiplicationPresent) {
             var previousMemberItem = list.get(index - 1)
             var currentMemberTypeMultiplication = list.removeAt(index)
-            var nextMemberItem = list.removeAt(index )
+            var nextMemberItem = list.removeAt(index)
             previousMemberItem.memberString = multiplication(previousMemberItem, nextMemberItem)
             checkMultiplication(list)
         }
@@ -145,8 +164,31 @@ class MainActivityModel : IMainActivityModel {
         return Integer.toString(result)
     }
 
-    private fun division(a: Int, b: Int): Int {
-        return a / b
+    private fun checkDivision(list: MutableList<MemberItem>) {
+        val iterator = list.iterator()
+        var index = 0
+        var isMultiplicationPresent = false
+        while (iterator.hasNext()) {
+            val currentMemberItem = iterator.next()
+            if (currentMemberItem.memberType == MemberType.DIVISION) {
+                isMultiplicationPresent = true
+                break
+            }
+            index++
+        }
+        if (isMultiplicationPresent) {
+            var previousMemberItem = list.get(index - 1)
+            var currentMemberTypeMultiplication = list.removeAt(index)
+            var nextMemberItem = list.removeAt(index)
+            previousMemberItem.memberString = division(previousMemberItem, nextMemberItem)
+            checkMultiplication(list)
+        }
+    }
+
+
+    private fun division(a: MemberItem, b: MemberItem): String {
+        var result = Integer.parseInt(a.memberString) / Integer.parseInt(b.memberString)
+        return Integer.toString(result)
     }
 
     private fun addition(a: Int, b: Int): Int {
@@ -161,7 +203,7 @@ class MainActivityModel : IMainActivityModel {
         return memberItemList.size
     }
 
-    fun getEquationFromInputText(): String? {
+    override fun getEquationFromInputText(): String? {
 //        checkEquationText()
         val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
