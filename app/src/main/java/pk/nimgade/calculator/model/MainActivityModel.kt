@@ -66,7 +66,7 @@ class MainActivityModel : IMainActivityModel {
 
                         (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
                         (lastMemberItem as MemberItem).memberString += character
-                        memberItemList.add(memberItemList.size - 1, MemberItem(MemberType.ADDITION, "+"))
+                        memberItemList.add(memberItemList.size - 1, MemberItem(MemberType.ADDITION, ""))
 
                     }
                     lastMemberItem != null &&
@@ -123,10 +123,13 @@ class MainActivityModel : IMainActivityModel {
         lastInputEquationText = getEquationFromInputText()
         println()
         if (memberItemList.isNotEmpty()) {
-            checkMultiplication(memberItemList)
-            checkDivision(memberItemList)
-            checkAddition(memberItemList)
-            checkSubtraction(memberItemList)
+            operation(memberItemList, MemberType.MULTIPLICATION)
+            operation(memberItemList, MemberType.DIVISION)
+            operation(memberItemList, MemberType.ADDITION)
+            operation(memberItemList, MemberType.SUBTRACTION)
+            /* checkDivision(memberItemList)
+             checkAddition(memberItemList)
+             checkSubtraction(memberItemList)*/
             Log.d(TAG, ": ${memberItemList.first().memberString}")
         }
 
@@ -144,6 +147,27 @@ class MainActivityModel : IMainActivityModel {
             return "$lastInputEquationText ="
         }
         return result
+    }
+
+    private fun operation(list: MutableList<MemberItem>, operationMemberType: MemberType) {
+        val iterator = list.iterator()
+        var index = 0
+        var isMultiplicationPresent = false
+        while (iterator.hasNext()) {
+            val currentMemberItem = iterator.next()
+            if (currentMemberItem.memberType == operationMemberType) {
+                isMultiplicationPresent = true
+                break
+            }
+            index++
+        }
+        if (isMultiplicationPresent) {
+            var previousMemberItem = list.get(index - 1)
+            var currentMemberTypeMultiplication = list.removeAt(index)
+            var nextMemberItem = list.removeAt(index)
+            previousMemberItem.operation(operationMemberType, nextMemberItem)
+            operation(list, operationMemberType)
+        }
     }
 
 
@@ -270,10 +294,10 @@ class MainActivityModel : IMainActivityModel {
     }
 
     override fun toString(): String {
-        var inputListValue:String = ""
+        var inputListValue: String = ""
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
-              inputListValue += "{${memberItem.memberString}\n"
+                inputListValue += "{${memberItem.memberString}\n"
             }
         }
         return inputListValue
