@@ -12,18 +12,16 @@ class MainActivityModel : IMainActivityModel {
 
     val TAG = "MainActivityModel"
 
-    //    private val memberItemList: MutableList<MemberItem> = mutableListOf()
-    val memberItemList: MutableList<MemberItem> = mutableListOf()
+    private val memberItemList: MutableList<MemberItem> = mutableListOf()
 
-    var lastInputEquationText: String? = null
+    private var lastInputEquationText: String? = null
 
     @Inject
     constructor()
 
 
     companion object {
-        //        private var lastMemberItem: MemberItem? = null
-        var lastMemberItem: MemberItem? = null
+        private var lastMemberItem: MemberItem? = null
     }
 
     override fun addCharacter(character: String): String? {
@@ -92,7 +90,7 @@ class MainActivityModel : IMainActivityModel {
             }
         }
 
-        return getEquationFromInputText()
+        return equationFromInputText
     }
 
     private fun getCharacterType(@NonNull character: Char): MemberType {
@@ -123,13 +121,22 @@ class MainActivityModel : IMainActivityModel {
         lastInputEquationText = getEquationFromInputText()
         println()
         if (memberItemList.isNotEmpty()) {
+            // according to BODMAS
+            /**
+             * The BODMAS acronym is for:
+             *  Brackets (parts of a calculation inside brackets always come first).
+             *  Orders (numbers involving powers or square roots).
+             *  Division.
+             *  Multiplication.
+             *  Addition.
+             *  Subtraction.
+             *
+             *  Operation should follow in mentioned order
+             */
             operation(memberItemList, MemberType.MULTIPLICATION)
             operation(memberItemList, MemberType.DIVISION)
             operation(memberItemList, MemberType.ADDITION)
             operation(memberItemList, MemberType.SUBTRACTION)
-            /* checkDivision(memberItemList)
-             checkAddition(memberItemList)
-             checkSubtraction(memberItemList)*/
             Log.d(TAG, ": ${memberItemList.first().memberString}")
         }
 
@@ -170,97 +177,17 @@ class MainActivityModel : IMainActivityModel {
         }
     }
 
-
-    private fun checkMultiplication(list: MutableList<MemberItem>) {
-        val iterator = list.iterator()
-        var index = 0
-        var isMultiplicationPresent = false
-        while (iterator.hasNext()) {
-            val currentMemberItem = iterator.next()
-            if (currentMemberItem.memberType == MemberType.MULTIPLICATION) {
-                isMultiplicationPresent = true
-                break
-            }
-            index++
-        }
-        if (isMultiplicationPresent) {
-            var previousMemberItem = list.get(index - 1)
-            var currentMemberTypeMultiplication = list.removeAt(index)
-            var nextMemberItem = list.removeAt(index)
-            previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkMultiplication(list)
-        }
-    }
-
-    private fun checkDivision(list: MutableList<MemberItem>) {
-        val iterator = list.iterator()
-        var index = 0
-        var isMultiplicationPresent = false
-        while (iterator.hasNext()) {
-            val currentMemberItem = iterator.next()
-            if (currentMemberItem.memberType == MemberType.DIVISION) {
-                isMultiplicationPresent = true
-                break
-            }
-            index++
-        }
-        if (isMultiplicationPresent) {
-            var previousMemberItem = list.get(index - 1)
-            var currentMemberTypeMultiplication = list.removeAt(index)
-            var nextMemberItem = list.removeAt(index)
-            previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkDivision(list)
-        }
-    }
-
-    private fun checkAddition(list: MutableList<MemberItem>) {
-        val iterator = list.iterator()
-        var index = 0
-        var isMultiplicationPresent = false
-        while (iterator.hasNext()) {
-            val currentMemberItem = iterator.next()
-            if (currentMemberItem.memberType == MemberType.ADDITION) {
-                isMultiplicationPresent = true
-                break
-            }
-            index++
-        }
-        if (isMultiplicationPresent) {
-            var previousMemberItem = list.get(index - 1)
-            var currentMemberTypeMultiplication = list.removeAt(index)
-            var nextMemberItem = list.removeAt(index)
-            previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkAddition(list)
-        }
-    }
-
-    private fun checkSubtraction(list: MutableList<MemberItem>) {
-        val iterator = list.iterator()
-        var index = 0
-        var isMultiplicationPresent = false
-        while (iterator.hasNext()) {
-            val currentMemberItem = iterator.next()
-            if (currentMemberItem.memberType == MemberType.SUBTRACTION) {
-                isMultiplicationPresent = true
-                break
-            }
-            index++
-        }
-        if (isMultiplicationPresent) {
-            var previousMemberItem = list.get(index - 1)
-            var currentMemberTypeMultiplication = list.removeAt(index)
-            var nextMemberItem = list.removeAt(index)
-            previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkSubtraction(list)
-        }
-    }
-
     override fun getEquationFromInputText(): String? {
 //        checkEquationText()
         val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
-                equationFromInputText.append("${memberItem.memberString} ")
+                equationFromInputText.append(if (!memberItem.memberString.isNullOrEmpty())
+                    "${memberItem.memberString} "
+                else
+                    ""
+                )
+
             }
         }
         return equationFromInputText.toString()
@@ -297,7 +224,7 @@ class MainActivityModel : IMainActivityModel {
         var inputListValue: String = ""
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
-                inputListValue += "{${memberItem.memberString}\n"
+                inputListValue += "${memberItem.memberString} "
             }
         }
         return inputListValue
