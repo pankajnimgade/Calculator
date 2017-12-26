@@ -37,7 +37,7 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
 
     private fun divide(memberItem: MemberItem) {
         val divide = bigNumber!!.divide(memberItem.bigNumber, 4, RoundingMode.HALF_UP)
-        memberString = divide.toString()
+        memberString = divide.stripTrailingZeros().toString()
     }
 
     private fun add(memberItem: MemberItem) {
@@ -49,4 +49,6 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
         val divide = bigNumber!!.subtract(memberItem.bigNumber)
         memberString = divide.toString()
     }
+
+
 }
