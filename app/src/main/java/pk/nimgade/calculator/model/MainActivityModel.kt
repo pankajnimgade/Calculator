@@ -63,19 +63,11 @@ class MainActivityModel : IMainActivityModel {
                             currentCharacterMemberType == MemberType.NUMBER -> {
                         // last is subtraction
                         // current is number
-                        if (memberItemList.size > 1) {
-                            val secondLastMemberItem = memberItemList.get(memberItemList.size - 2)
-                            if (secondLastMemberItem.memberType != MemberType.NUMBER) {
-                                (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
-                                (lastMemberItem as MemberItem).memberString += character
-                            }else{
-                                lastMemberItem = MemberItem(currentCharacterMemberType, character)
-                                memberItemList.add((lastMemberItem as MemberItem))
-                            }
-                        } else {
-                            (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
-                            (lastMemberItem as MemberItem).memberString += character
-                        }
+
+                        (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
+                        (lastMemberItem as MemberItem).memberString += character
+                        memberItemList.add(memberItemList.size - 1, MemberItem(MemberType.ADDITION, "+"))
+
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
@@ -193,7 +185,7 @@ class MainActivityModel : IMainActivityModel {
             var currentMemberTypeMultiplication = list.removeAt(index)
             var nextMemberItem = list.removeAt(index)
             previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkMultiplication(list)
+            checkDivision(list)
         }
     }
 
@@ -214,7 +206,7 @@ class MainActivityModel : IMainActivityModel {
             var currentMemberTypeMultiplication = list.removeAt(index)
             var nextMemberItem = list.removeAt(index)
             previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkMultiplication(list)
+            checkAddition(list)
         }
     }
 
@@ -235,7 +227,7 @@ class MainActivityModel : IMainActivityModel {
             var currentMemberTypeMultiplication = list.removeAt(index)
             var nextMemberItem = list.removeAt(index)
             previousMemberItem.operation(currentMemberTypeMultiplication.memberType, nextMemberItem)
-            checkMultiplication(list)
+            checkSubtraction(list)
         }
     }
 
@@ -269,19 +261,22 @@ class MainActivityModel : IMainActivityModel {
         }
     }
 
-    private fun println(){
-        if (memberItemList.isNotEmpty() ) {
-            for (memberItem in memberItemList){
+    private fun println() {
+        if (memberItemList.isNotEmpty()) {
+            for (memberItem in memberItemList) {
                 print("${memberItem.memberString} # ")
             }
         }
     }
 
     override fun toString(): String {
-        return memberItemList.toString()
+        var inputListValue:String = ""
+        if (memberItemList.isNotEmpty()) {
+            for (memberItem in memberItemList) {
+              inputListValue += "{${memberItem.memberString}\n"
+            }
+        }
+        return inputListValue
     }
 
 }
-
-
-
