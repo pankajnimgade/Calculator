@@ -5,5 +5,5 @@ package pk.nimgade.calculator.model
  */
 enum class MemberType {
 
-    NUMBER, ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION;
+    NUMBER, DECIMAL, ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION;
 }

@@ -26,7 +26,7 @@ class MainActivityModel : IMainActivityModel {
 
     override fun addCharacter(character: String): String? {
         if (!character.isNullOrEmpty() && character.length == 1) {
-            if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]"))) {
+            if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]|[.]"))) {
                 val currentCharacterMemberType = getCharacterType(character[0])
                 if (memberItemList.isEmpty()) {
                     lastMemberItem = null
@@ -85,6 +85,22 @@ class MainActivityModel : IMainActivityModel {
                         // current number
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
                         memberItemList.add((lastMemberItem as MemberItem))
+                    }
+                    lastMemberItem != null &&
+                            (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
+                            currentCharacterMemberType == MemberType.DECIMAL -> {
+                        // last number
+                        // current . (decimal)
+                        (lastMemberItem as MemberItem).memberType = MemberType.DECIMAL
+                        (lastMemberItem as MemberItem).memberString += character
+                    }
+                    lastMemberItem != null &&
+                            (lastMemberItem as MemberItem).memberType == MemberType.DECIMAL &&
+                            currentCharacterMemberType == MemberType.NUMBER -> {
+                        // last . (decimal)
+                        // current number
+                        (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
+                        (lastMemberItem as MemberItem).memberString += character
                     }
                 }
             }
@@ -178,7 +194,6 @@ class MainActivityModel : IMainActivityModel {
     }
 
     override fun getEquationFromInputText(): String? {
-//        checkEquationText()
         val equationFromInputText = StringBuilder()
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
