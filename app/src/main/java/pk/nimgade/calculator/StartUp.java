@@ -13,6 +13,7 @@ public class StartUp extends Application {
 
     private MainActivityComponent component;
 
+
     @Override
     public void onCreate() {
         super.onCreate();

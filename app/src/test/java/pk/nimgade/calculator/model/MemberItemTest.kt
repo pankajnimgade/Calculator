@@ -88,8 +88,8 @@ class MemberItemTest {
         val _1: MemberItem = MemberItem(MemberType.NUMBER, "0")
         val _2: MemberItem = MemberItem(MemberType.NUMBER, "4")
         _1.operation(MemberType.DIVISION, _2)
-        val actual = BigDecimal(0).divide(BigDecimal.ONE, 4, RoundingMode.HALF_UP)
-        Assert.assertEquals(actual, _1.bigNumber)
+        val expected = BigDecimal(0).divide(BigDecimal.ONE, 4, RoundingMode.HALF_UP)
+        Assert.assertEquals(expected.stripTrailingZeros(), _1.bigNumber)
     }
 
     @Test(expected =  ArithmeticException::class)
