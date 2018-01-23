@@ -154,6 +154,8 @@ class MainActivityModel : IMainActivityModel {
             operation(memberItemList, MemberType.ADDITION)
             operation(memberItemList, MemberType.SUBTRACTION)
             Log.d(TAG, ": ${memberItemList.first().memberString}")
+        } else {
+            return ""
         }
 
         if (memberItemList.isNotEmpty()) {
@@ -195,14 +197,18 @@ class MainActivityModel : IMainActivityModel {
 
     override fun getEquationFromInputText(): String? {
         val equationFromInputText = StringBuilder()
+        val space: String = if (memberItemList.size == 1) {
+            ""
+        } else {
+            " "
+        }
         if (memberItemList.isNotEmpty()) {
             for (memberItem in memberItemList) {
                 equationFromInputText.append(if (!memberItem.memberString.isNullOrEmpty())
-                    "${memberItem.memberString} "
+                    "${memberItem.memberString}$space"
                 else
                     ""
                 )
-
             }
         }
         return equationFromInputText.toString()
