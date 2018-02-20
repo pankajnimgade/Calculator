@@ -52,4 +52,17 @@ class MainActivityModelTest {
             println()
         }
     }
+
+    @Test
+    fun testEquateAddition() {
+        println("MainActivityModelAndroidTest")
+        val model = MainActivityModel()
+        val input = "123 + 321"
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        val calculateOrCompute = model.calculateOrCompute()
+        println("MainActivityModelAndroidTest")
+        println(calculateOrCompute)
+    }
 }

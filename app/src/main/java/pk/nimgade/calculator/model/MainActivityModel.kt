@@ -153,7 +153,7 @@ class MainActivityModel : IMainActivityModel {
             operation(memberItemList, MemberType.DIVISION)
             operation(memberItemList, MemberType.ADDITION)
             operation(memberItemList, MemberType.SUBTRACTION)
-            Log.d(TAG, ": ${memberItemList.first().memberString}")
+            println("$TAG ${memberItemList.first().memberString}")
         } else {
             return ""
         }
@@ -161,7 +161,6 @@ class MainActivityModel : IMainActivityModel {
         if (memberItemList.isNotEmpty()) {
             result = memberItemList.first().memberString
         }
-        memberItemList.clear()
         return result
     }
 

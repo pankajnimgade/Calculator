@@ -17,7 +17,6 @@ class MainActivity : SuperMain(), IMainActivityView {
 
     private val TAG = "MainActivity"
 
-
     @Inject
     lateinit var presenter: IMainActivityPresenter
 
