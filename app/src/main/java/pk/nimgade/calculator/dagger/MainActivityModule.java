@@ -16,7 +16,6 @@ import pk.nimgade.calculator.presenter.MainActivityPresenter;
 @Module
 public class MainActivityModule {
 
-
     @Provides
     @Singleton
     IMainActivityPresenter getMainActivityPresenter(IMainActivityModel model) {

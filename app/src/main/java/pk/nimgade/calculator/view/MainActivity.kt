@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import pk.nimgade.calculator.R
-import pk.nimgade.calculator.StartUp
+import pk.nimgade.calculator.application.StartUp
 import pk.nimgade.calculator.SuperMain
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
 import javax.inject.Inject
@@ -22,6 +22,8 @@ class MainActivity : SuperMain(), IMainActivityView {
 
     private var lastCharacter: Char? = null
 
+    private lateinit var snackbar: Snackbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +33,8 @@ class MainActivity : SuperMain(), IMainActivityView {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        snackbar = Snackbar.make(findViewById(R.id.MainActivity_root_layout_CoordinatorLayout), "",
+                Snackbar.LENGTH_SHORT)
         initializeUI()
     }
 
@@ -166,7 +170,9 @@ class MainActivity : SuperMain(), IMainActivityView {
     }
 
     override fun showErrorMessage(errorMessage: String?) {
-
+        Log.d(TAG, "$errorMessage: $errorMessage")
+        inputOutputDisplayTextView.text = "$errorMessage"
+        snackbar.setText("$errorMessage").show()
     }
 
     override fun lastComputationEquation(lastComputationEquation: String?) {

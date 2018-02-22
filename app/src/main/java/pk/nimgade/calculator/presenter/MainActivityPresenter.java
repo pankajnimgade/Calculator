@@ -2,6 +2,8 @@ package pk.nimgade.calculator.presenter;
 
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Inject;
 
 import pk.nimgade.calculator.model.IMainActivityModel;
@@ -23,6 +25,7 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     @Inject
     public MainActivityPresenter(IMainActivityModel model) {
         this.model = model;
+        this.model.setPresenter(this);
     }
 
     @Override
@@ -42,5 +45,10 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     public void inputCharacter(String inputCharacter) {
         String inputEquationDisplayText = model.addCharacter(inputCharacter);
         view.setInputData(inputEquationDisplayText);
+    }
+
+    @Override
+    public void divideByZeroOccurred(@NotNull String divideByZeroError) {
+        view.showErrorMessage(divideByZeroError);
     }
 }

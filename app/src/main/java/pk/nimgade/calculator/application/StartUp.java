@@ -1,4 +1,4 @@
-package pk.nimgade.calculator;
+package pk.nimgade.calculator.application;
 
 import android.app.Application;
 

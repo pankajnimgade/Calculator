@@ -1,7 +1,9 @@
 package pk.nimgade.calculator.model
 
 import android.support.annotation.NonNull
-import android.util.Log
+import pk.nimgade.calculator.application.utils.Constants
+import pk.nimgade.calculator.presenter.IMainActivityPresenter
+import java.math.BigDecimal
 import javax.inject.Inject
 
 /**
@@ -10,9 +12,11 @@ import javax.inject.Inject
 class MainActivityModel : IMainActivityModel {
 
 
-    val TAG = "MainActivityModel"
+    val TAG = "MAIN_ACTIVITY_MODEL"
 
     private val memberItemList: MutableList<MemberItem> = mutableListOf()
+
+    private lateinit var presenter: IMainActivityPresenter
 
     private var lastInputEquationText: String? = null
 
@@ -22,6 +26,10 @@ class MainActivityModel : IMainActivityModel {
 
     companion object {
         private var lastMemberItem: MemberItem? = null
+    }
+
+    override fun setPresenter(presenter: IMainActivityPresenter) {
+        this.presenter = presenter
     }
 
     override fun addCharacter(character: String): String? {
@@ -137,31 +145,44 @@ class MainActivityModel : IMainActivityModel {
         lastInputEquationText = getEquationFromInputText()
         println()
         if (memberItemList.isNotEmpty()) {
-            // according to BODMAS
-            /**
-             * The BODMAS acronym is for:
-             *  Brackets (parts of a calculation inside brackets always come first).
-             *  Orders (numbers involving powers or square roots).
-             *  Division.
-             *  Multiplication.
-             *  Addition.
-             *  Subtraction.
-             *
-             *  Operation should follow in mentioned order
-             */
-            operation(memberItemList, MemberType.MULTIPLICATION)
-            operation(memberItemList, MemberType.DIVISION)
-            operation(memberItemList, MemberType.ADDITION)
-            operation(memberItemList, MemberType.SUBTRACTION)
-            println("$TAG ${memberItemList.first().memberString}")
+
+            if (!checkForDivideByZero(memberItemList)) {
+                // according to BODMAS
+                /**
+                 * The BODMAS acronym is for:
+                 *  Brackets (parts of a calculation inside brackets always come first).
+                 *  Orders (numbers involving powers or square roots).
+                 *  Division.
+                 *  Multiplication.
+                 *  Addition.
+                 *  Subtraction.
+                 *
+                 *  Operation should follow in mentioned order
+                 */
+                operation(memberItemList, MemberType.MULTIPLICATION)
+                operation(memberItemList, MemberType.DIVISION)
+                operation(memberItemList, MemberType.ADDITION)
+                operation(memberItemList, MemberType.SUBTRACTION)
+                println("$TAG ${memberItemList.first().memberString}")
+            } else {
+                val errorMessage = Constants.CANT_DIVIDE_BY_ZERO
+                this.presenter.divideByZeroOccurred(errorMessage)
+                return errorMessage
+            }
         } else {
             return ""
         }
-
         if (memberItemList.isNotEmpty()) {
             result = memberItemList.first().memberString
         }
         return result
+    }
+
+    private fun checkForDivideByZero(memberItemList: MutableList<MemberItem>): Boolean {
+        return (0 until memberItemList.size)
+                .filter { (memberItemList[it].memberType == MemberType.DIVISION) }
+                .map { it + 1 }
+                .any { it >= 0 && it < memberItemList.size && memberItemList[it].bigNumber == BigDecimal.ZERO }
     }
 
 

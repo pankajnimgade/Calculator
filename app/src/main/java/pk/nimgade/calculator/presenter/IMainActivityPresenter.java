@@ -1,5 +1,7 @@
 package pk.nimgade.calculator.presenter;
 
+import org.jetbrains.annotations.NotNull;
+
 import pk.nimgade.calculator.view.IMainActivityView;
 
 /**
@@ -14,4 +16,5 @@ public interface IMainActivityPresenter {
 
     void inputCharacter(String inputCharacter);
 
+    void divideByZeroOccurred(@NotNull String divideByZeroError);
 }

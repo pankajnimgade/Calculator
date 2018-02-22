@@ -34,6 +34,7 @@
         android:fontFamily="sans-serif-condensed"
         android:gravity="right|bottom"
         android:text="Input"
+        android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
