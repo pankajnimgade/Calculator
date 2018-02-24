@@ -3,6 +3,7 @@ package pk.nimgade.calculator.presenter;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Inject;
 
@@ -50,5 +51,17 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     @Override
     public void divideByZeroOccurred(@NotNull String divideByZeroError) {
         view.showErrorMessage(divideByZeroError);
+    }
+
+    @Override
+    public void deleteLastCharacter() {
+        Log.d(TAG, "deleteLastCharacter(): ");
+        this.model.deleteLastCharacter();
+    }
+
+    @Override
+    public void setUpdatedInput(@Nullable String equationFromInputText) {
+        this.view.setOutputResult(equationFromInputText+"");
+        this.view.setInputData(equationFromInputText+"");
     }
 }

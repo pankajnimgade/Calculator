@@ -1,6 +1,7 @@
 package pk.nimgade.calculator.model
 
 import android.support.annotation.NonNull
+import android.util.Log
 import pk.nimgade.calculator.application.utils.Constants
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
 import java.math.BigDecimal
@@ -197,16 +198,16 @@ class MainActivityModel : IMainActivityModel {
     private fun operation(list: MutableList<MemberItem>, operationMemberType: MemberType) {
         val iterator = list.iterator()
         var index = 0
-        var isMultiplicationPresent = false
+        var isCurrentOperationType = false // checks for  *, /, + and -
         while (iterator.hasNext()) {
             val currentMemberItem = iterator.next()
             if (currentMemberItem.memberType == operationMemberType) {
-                isMultiplicationPresent = true
+                isCurrentOperationType = true
                 break
             }
             index++
         }
-        if (isMultiplicationPresent) {
+        if (isCurrentOperationType) {
             var previousMemberItem = list.get(index - 1)
             var currentMemberTypeMultiplication = list.removeAt(index)
             var nextMemberItem = list.removeAt(index)
@@ -250,6 +251,26 @@ class MainActivityModel : IMainActivityModel {
             if (memberItemList.first().memberType != MemberType.NUMBER) {
                 memberItemList.removeAt(0)
             }
+        }
+    }
+
+    override fun deleteLastCharacter() {
+        Log.d(TAG, "deleteLastCharacter(): ")
+        if (memberItemList != null && memberItemList.size > 0) {
+            val lastMemberItem = memberItemList.last()
+            if (lastMemberItem != null) {
+                if (lastMemberItem.memberType == MemberType.NUMBER) {
+                    if (lastMemberItem.memberString.trim().length <= 1) {
+                        memberItemList.removeAt(memberItemList.size - 1)
+                    } else {
+                        lastMemberItem.memberString = lastMemberItem.memberString.dropLast(1)
+                    }
+                } else {
+                    memberItemList.removeAt(memberItemList.size - 1)
+                }
+            }
+            val restOfEquation = equationFromInputText
+            this.presenter.setUpdatedInput(restOfEquation)
         }
     }
 

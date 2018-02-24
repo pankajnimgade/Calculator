@@ -17,4 +17,9 @@ public interface IMainActivityView {
     void showErrorMessage(String errorMessage);
 
     void lastComputationEquation(String lastComputationEquation);
+
+    /**
+     * deletes last character from the input equation
+     */
+    void deleteLastCharacter();
 }

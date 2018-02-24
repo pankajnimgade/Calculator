@@ -8,8 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import pk.nimgade.calculator.R
-import pk.nimgade.calculator.application.StartUp
 import pk.nimgade.calculator.SuperMain
+import pk.nimgade.calculator.application.StartUp
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
 import javax.inject.Inject
 
@@ -72,6 +72,7 @@ class MainActivity : SuperMain(), IMainActivityView {
     }
 
     fun inputCollector(view: View) {
+        var collectChar = true
         when (view.id) {
             R.id.MainActivity_0_button -> {
                 lastCharacter = '0'
@@ -107,7 +108,8 @@ class MainActivity : SuperMain(), IMainActivityView {
                 lastCharacter = '.'
             }
             R.id.MainActivity_delete_clear_button -> {
-                lastCharacter = '\u0127'
+                collectChar = false
+                Log.d(TAG, "Do nothing to clear here: ")
             }
             R.id.MainActivity_plus_button -> {
                 lastCharacter = '+'
@@ -122,7 +124,14 @@ class MainActivity : SuperMain(), IMainActivityView {
                 lastCharacter = '*'
             }
         }
-        presenter.inputCharacter(lastCharacter.toString())
+        if (collectChar){
+            presenter.inputCharacter(lastCharacter.toString())
+        }
+    }
+
+    fun clearEquation(view: View) {
+        Log.d(TAG, ": Clear equation")
+        presenter.deleteLastCharacter()
     }
 
     fun computeEquals(view: View) {
@@ -149,6 +158,11 @@ class MainActivity : SuperMain(), IMainActivityView {
         return lastCharacter!!.toChar()
     }
 
+    override fun deleteLastCharacter() {
+        Log.d(TAG, ": deleteLastCharacter()")
+        this.presenter.deleteLastCharacter()
+    }
+
     /**
      * Use this for the equation
      * @param inputData for the equation
@@ -162,6 +176,7 @@ class MainActivity : SuperMain(), IMainActivityView {
      * @param outputResult output of the equation or for equation itself until computation starts
      * */
     override fun setOutputResult(outputResult: String?) {
+        Log.d(TAG, "setOutputResult(): $outputResult")
         inputOutputDisplayTextView.text = outputResult
     }
 
