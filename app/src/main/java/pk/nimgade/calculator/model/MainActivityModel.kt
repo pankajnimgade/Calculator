@@ -36,10 +36,10 @@ class MainActivityModel : IMainActivityModel {
         if (!character.isNullOrEmpty() && character.length == 1) {
             if (character.matches(Regex(pattern = "[0-9]|[+]|[-]|[*]|[/]|[.]"))) {
                 val currentCharacterMemberType = getCharacterType(character[0])
-                if (memberItemList.isEmpty()) {
-                    lastMemberItem = null
+                lastMemberItem = if (memberItemList.isEmpty()) {
+                    null
                 } else {
-                    lastMemberItem = memberItemList.last()
+                    memberItemList.last()
                 }
                 when {
                     lastMemberItem == null -> {
@@ -53,7 +53,11 @@ class MainActivityModel : IMainActivityModel {
                             (currentCharacterMemberType == MemberType.NUMBER)) -> {
                         // last    is number
                         // current is number
-                        (lastMemberItem as MemberItem).memberString += character
+                        if ((lastMemberItem as MemberItem).memberString.contains(".") &&
+                                character.contains(".")) {
+                        } else {
+                            (lastMemberItem as MemberItem).memberString += character
+                        }
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
@@ -275,7 +279,7 @@ class MainActivityModel : IMainActivityModel {
 
     override fun clearCompleteEquation() {
         Log.d(TAG, ": clearCompleteEquation()")
-        if (memberItemList != null && memberItemList.isNotEmpty()){
+        if (memberItemList != null && memberItemList.isNotEmpty()) {
             memberItemList.clear()
         }
         this.presenter.setUpdatedInput(equationFromInputText)
