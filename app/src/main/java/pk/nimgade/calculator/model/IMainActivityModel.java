@@ -21,4 +21,6 @@ public interface IMainActivityModel {
     String getEquationFromInputText();
 
     void deleteLastCharacter();
+
+    void clearCompleteEquation();
 }

@@ -12,7 +12,6 @@ import javax.inject.Inject
  */
 class MainActivityModel : IMainActivityModel {
 
-
     val TAG = "MAIN_ACTIVITY_MODEL"
 
     private val memberItemList: MutableList<MemberItem> = mutableListOf()
@@ -272,6 +271,14 @@ class MainActivityModel : IMainActivityModel {
             val restOfEquation = equationFromInputText
             this.presenter.setUpdatedInput(restOfEquation)
         }
+    }
+
+    override fun clearCompleteEquation() {
+        Log.d(TAG, ": clearCompleteEquation()")
+        if (memberItemList != null && memberItemList.isNotEmpty()){
+            memberItemList.clear()
+        }
+        this.presenter.setUpdatedInput(equationFromInputText)
     }
 
     private fun println() {

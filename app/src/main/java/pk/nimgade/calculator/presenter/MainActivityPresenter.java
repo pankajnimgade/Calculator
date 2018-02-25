@@ -64,4 +64,9 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         this.view.setOutputResult(equationFromInputText+"");
         this.view.setInputData(equationFromInputText+"");
     }
+
+    @Override
+    public void clearAll() {
+       this.model.clearCompleteEquation();
+    }
 }

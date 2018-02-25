@@ -22,4 +22,6 @@ public interface IMainActivityPresenter {
     void deleteLastCharacter();
 
     void setUpdatedInput(@Nullable String equationFromInputText);
+
+    void clearAll();
 }

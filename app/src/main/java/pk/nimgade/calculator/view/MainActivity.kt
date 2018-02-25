@@ -63,6 +63,11 @@ class MainActivity : SuperMain(), IMainActivityView {
 
         (application as StartUp).component.inject(this)
 
+        clearButton.setOnLongClickListener({
+            presenter.clearAll()
+            true
+        })
+
         if (presenter == null) Log.d(TAG, ":presenter is null ") else Log.d(TAG, ":presenter ${presenter.javaClass}")
     }
 
@@ -124,7 +129,7 @@ class MainActivity : SuperMain(), IMainActivityView {
                 lastCharacter = '*'
             }
         }
-        if (collectChar){
+        if (collectChar) {
             presenter.inputCharacter(lastCharacter.toString())
         }
     }
