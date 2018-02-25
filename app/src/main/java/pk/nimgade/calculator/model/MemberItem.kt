@@ -31,23 +31,40 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
     }
 
     private fun multiply(memberItem: MemberItem) {
-        val multiply = bigNumber!!.multiply(memberItem.bigNumber)
-        memberString = multiply.toString()
+        val multiply = bigNumber!!.multiply(memberItem.bigNumber).stripTrailingZeros()
+        memberString = if (multiply.compareTo(BigDecimal.ZERO) == 0) {
+            "0"
+        } else {
+            multiply.toString()
+        }
     }
 
     private fun divide(memberItem: MemberItem) {
-        val divide = bigNumber!!.divide(memberItem.bigNumber, 4, RoundingMode.HALF_UP)
-        memberString = divide.stripTrailingZeros().toString()
+        val divide = bigNumber!!.divide(memberItem.bigNumber, 4, RoundingMode.HALF_UP).stripTrailingZeros()
+        memberString = if (divide.compareTo(BigDecimal.ZERO) == 0) {
+            "0"
+        } else {
+            divide.toString()
+        }
     }
 
     private fun add(memberItem: MemberItem) {
-        val divide = bigNumber!!.add(memberItem.bigNumber)
-        memberString = divide.toString()
+        val add = bigNumber!!.add(memberItem.bigNumber).stripTrailingZeros()
+        memberString = if (add.compareTo(BigDecimal.ZERO) == 0) {
+            "0"
+        } else {
+            add.toString()
+        }
+
     }
 
     private fun subtract(memberItem: MemberItem) {
-        val divide = bigNumber!!.subtract(memberItem.bigNumber)
-        memberString = divide.toString()
+        val subtract = bigNumber!!.subtract(memberItem.bigNumber).stripTrailingZeros()
+        memberString = if (subtract.compareTo(BigDecimal.ZERO) == 0) {
+            "0"
+        } else {
+            subtract.toString()
+        }
     }
 
 
