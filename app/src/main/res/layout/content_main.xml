@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/MainActivity_InputEquation_textView"
         style="@style/InputEquationTextDisplay"
-        android:text="Equation Input"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_inputOutputDisplay_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         style="@style/InputTextDisplay"
         android:fontFamily="sans-serif-condensed"
         android:gravity="right|bottom"
-        android:text="Input"
+        android:text=""
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
