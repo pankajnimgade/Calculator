@@ -35,7 +35,7 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
         memberString = if (multiply.compareTo(BigDecimal.ZERO) == 0) {
             "0"
         } else {
-            multiply.toString()
+            multiply.toPlainString()
         }
     }
 
@@ -44,7 +44,7 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
         memberString = if (divide.compareTo(BigDecimal.ZERO) == 0) {
             "0"
         } else {
-            divide.toString()
+            divide.toPlainString()
         }
     }
 
@@ -53,7 +53,7 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
         memberString = if (add.compareTo(BigDecimal.ZERO) == 0) {
             "0"
         } else {
-            add.toString()
+            add.toPlainString()
         }
 
     }
@@ -63,7 +63,7 @@ data class MemberItem(var memberType: MemberType, var memberString: String) {
         memberString = if (subtract.compareTo(BigDecimal.ZERO) == 0) {
             "0"
         } else {
-            subtract.toString()
+            subtract.toPlainString()
         }
     }
 
