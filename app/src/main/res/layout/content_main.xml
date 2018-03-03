@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="pk.nimgade.calculator.view.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -13,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_InputEquation_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +23,8 @@
     <TextView
         android:id="@+id/MainActivity_InputEquation_textView"
         style="@style/InputEquationTextDisplay"
-        android:text=""
+        android:text="hint"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_inputOutputDisplay_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +36,7 @@
         style="@style/InputTextDisplay"
         android:fontFamily="sans-serif-condensed"
         android:gravity="right|bottom"
-        android:text=""
+        android:text="hint"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
@@ -46,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <include
         layout="@layout/keypad_layout"

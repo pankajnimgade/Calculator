@@ -13,15 +13,25 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
+    </style>
+
+    <style name="actionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@android:color/darker_gray</item>
+    </style>
 
 
     <style name="ButtonKeyPad" parent="Widget.AppCompat.Button">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
         <item name="android:clickable">true</item>
 
         <item name="android:gravity">center</item>
@@ -37,7 +47,7 @@
     <style name="InputTextDisplay" parent="android:TextAppearance.Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
         <item name="android:clickable">false</item>
         <item name="android:layout_margin">4dp</item>
 
@@ -51,7 +61,7 @@
     <style name="InputEquationTextDisplay" parent="android:TextAppearance.Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
         <item name="android:clickable">false</item>
         <item name="android:layout_margin">4dp</item>
 
