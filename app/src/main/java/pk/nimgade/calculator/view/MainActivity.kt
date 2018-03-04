@@ -7,13 +7,14 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.design.widget.Snackbar
-import android.support.v4.view.animation.FastOutLinearInInterpolator
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.animation.LinearInterpolator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import pk.nimgade.calculator.R
 import pk.nimgade.calculator.SuperMain
 import pk.nimgade.calculator.application.StartUp
@@ -87,16 +88,15 @@ class MainActivity : SuperMain(), IMainActivityView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun circularReveal() {
         val view = findViewById<View>(R.id.MainActivity_reveal_background)
-        val right = view.right
-        val bottom = view.bottom
+        val centerX = view.right
+        val centerY = view.bottom
         val startRadius = 0
-        val endRadius = Math.hypot(view.width.toDouble(),
-                view.height.toDouble()).toInt()
+        val endRadius = Math.hypot(view.width.toDouble(), view.height.toDouble()).toInt()
 
-        val anim = ViewAnimationUtils.createCircularReveal(view, right, bottom,
+        val anim = ViewAnimationUtils.createCircularReveal(view, centerX, centerY,
                 startRadius.toFloat(), endRadius.toFloat())
-        anim.duration = 300
-        anim.interpolator = FastOutLinearInInterpolator()
+        anim.duration = 500
+        anim.interpolator = LinearInterpolator()
         view.visibility = View.VISIBLE
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
