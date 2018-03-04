@@ -9,40 +9,56 @@
     tools:context="pk.nimgade.calculator.view.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/MainActivity_history_recyclerView"
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/MainActivity_InputEquation_textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/MainActivity_InputEquation_textView"
-        style="@style/InputEquationTextDisplay"
-        android:text="hint"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintBottom_toTopOf="@+id/MainActivity_inputOutputDisplay_textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainActivity_history_recyclerView" />
-
-
-    <TextView
-        android:id="@+id/MainActivity_inputOutputDisplay_textView"
-        style="@style/InputTextDisplay"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="right|bottom"
-        android:text="hint"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/MainActivity_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainActivity_InputEquation_textView" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/MainActivity_history_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/MainActivity_InputEquation_textView"
+                style="@style/InputEquationTextDisplay"
+                android:layout_width="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="left|bottom"
+                android:text="" />
+
+
+            <TextView
+                android:id="@+id/MainActivity_inputOutputDisplay_textView"
+                style="@style/InputTextDisplay"
+                android:layout_width="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="right|bottom"
+                android:text=""
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/MainActivity_reveal_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blueColorTransparent"
+            android:visibility="invisible" />
+    </FrameLayout>
+
 
     <android.support.constraint.Guideline
         android:id="@+id/MainActivity_horizontal_guideline"

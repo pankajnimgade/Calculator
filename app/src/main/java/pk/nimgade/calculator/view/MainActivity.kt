@@ -1,17 +1,25 @@
 package pk.nimgade.calculator.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.design.widget.Snackbar
+import android.support.v4.view.animation.FastOutLinearInInterpolator
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewAnimationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import pk.nimgade.calculator.R
 import pk.nimgade.calculator.SuperMain
 import pk.nimgade.calculator.application.StartUp
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
 import javax.inject.Inject
+
 
 class MainActivity : SuperMain(), IMainActivityView {
 
@@ -40,8 +48,8 @@ class MainActivity : SuperMain(), IMainActivityView {
 
     private fun initializeUI() {
         historyRecyclerView = findViewById(R.id.MainActivity_history_recyclerView)
-        inputOutputDisplayTextView = findViewById(R.id.MainActivity_inputOutputDisplay_textView)
         inputEquationDisplayTextView = findViewById(R.id.MainActivity_InputEquation_textView)
+        inputOutputDisplayTextView = findViewById(R.id.MainActivity_inputOutputDisplay_textView)
 
         _0_Button = findViewById(R.id.MainActivity_0_button)
         _1_Button = findViewById(R.id.MainActivity_1_button)
@@ -65,10 +73,38 @@ class MainActivity : SuperMain(), IMainActivityView {
 
         clearButton.setOnLongClickListener({
             presenter.clearAll()
+            inputEquationDisplayTextView.text = ""
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                circularReveal()
+            }
             true
         })
 
         if (presenter == null) Log.d(TAG, ":presenter is null ") else Log.d(TAG, ":presenter ${presenter.javaClass}")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun circularReveal() {
+        val view = findViewById<View>(R.id.MainActivity_reveal_background)
+        val right = view.right
+        val bottom = view.bottom
+        val startRadius = 0
+        val endRadius = Math.hypot(view.width.toDouble(),
+                view.height.toDouble()).toInt()
+
+        val anim = ViewAnimationUtils.createCircularReveal(view, right, bottom,
+                startRadius.toFloat(), endRadius.toFloat())
+        anim.duration = 300
+        anim.interpolator = FastOutLinearInInterpolator()
+        view.visibility = View.VISIBLE
+        anim.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                view.visibility = View.INVISIBLE
+            }
+        })
+        anim.start()
     }
 
     override fun onResume() {
