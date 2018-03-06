@@ -2,4 +2,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="textSize_Keypad_Button">30dp</dimen>
     <dimen name="textSize_InputEquationText">25dp</dimen>
+    <dimen name="textSize_AboutTextView">15dp</dimen>
+
 </resources>

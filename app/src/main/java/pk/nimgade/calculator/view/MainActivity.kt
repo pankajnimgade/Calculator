@@ -3,6 +3,7 @@ package pk.nimgade.calculator.view
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.app.DialogFragment
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -19,6 +20,7 @@ import pk.nimgade.calculator.R
 import pk.nimgade.calculator.SuperMain
 import pk.nimgade.calculator.application.StartUp
 import pk.nimgade.calculator.presenter.IMainActivityPresenter
+import pk.nimgade.calculator.view.about.AboutFragment
 import javax.inject.Inject
 
 
@@ -190,7 +192,11 @@ class MainActivity : SuperMain(), IMainActivityView {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.MainActivity_menu_about -> {
+                val aboutFragment:DialogFragment = AboutFragment.newInstance()
+                aboutFragment.show(fragmentManager.beginTransaction(), "About-Dialog")
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -4,4 +4,7 @@
     <dimen name="textSize_InputEquationText">25dp</dimen>
 
 
+    <dimen name="textSize_AboutTextView">15dp</dimen>
+
+
 </resources>
