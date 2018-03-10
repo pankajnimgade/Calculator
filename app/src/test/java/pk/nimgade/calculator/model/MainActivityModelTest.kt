@@ -2,6 +2,11 @@ package pk.nimgade.calculator.model
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.mock
+import pk.nimgade.calculator.presenter.IMainActivityPresenter
+import pk.nimgade.calculator.view.IMainActivityView
+import java.math.BigDecimal
 import java.util.*
 
 /**
@@ -18,13 +23,13 @@ class MainActivityModelTest {
 
         val listOfInputText = arrayListOf("12-", "123*", "61+00", "/745", "18*")
 
-        for (text in listOfInputText){
-            val model:IMainActivityModel = MainActivityModel()
+        for (text in listOfInputText) {
+            val model: IMainActivityModel = MainActivityModel()
             println(text)
-            for (character in text){
+            for (character in text) {
                 model.addCharacter(character.toString())
             }
-            val output =model.equationFromInputText
+            val output = model.equationFromInputText
             println(output)
 
             println("\n#########\n")
@@ -64,5 +69,47 @@ class MainActivityModelTest {
         val calculateOrCompute = model.calculateOrCompute()
         println("MainActivityModelAndroidTest")
         println(calculateOrCompute)
+    }
+
+    @Test
+    fun testCheckForDivideByZero() {
+        println("testCheckForDivideByZero")
+        val model = MainActivityModel()
+        val presenter = mock(IMainActivityPresenter::class.java)
+        Mockito.`when`(presenter.clearAll()).then { println("Clear All") }
+        Mockito.`when`(presenter.setView(mock(IMainActivityView::class.java))).then {
+            ("SetView")
+        }
+        Mockito.`when`(presenter.clearAll()).then { println("Clear All") }
+        Mockito.`when`(presenter.deleteLastCharacter()).then { println("deleteLastCharacter") }
+        Mockito.`when`(presenter.setUpdatedInput("")).then {
+
+            ("setUpdatedInput")
+        }
+        Mockito.`when`(presenter.inputCharacter("")).then {
+            println("input String")
+        }
+        Mockito.`when`(presenter.divideByZeroOccurred("")).then {
+
+            ("divide by zero occurred")
+        }
+        model.setPresenter(presenter)
+        val input = "123 / 0"
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        val calculateOrCompute = model.calculateOrCompute()
+        println(calculateOrCompute)
+    }
+
+    @Test
+    fun testBigDecimalZero() {
+        val zero = BigDecimal.ZERO
+        println("BigDecimal.ZERO: $zero")
+
+        val zeroWithDecimal = BigDecimal("0.0")
+        println("BigDecimal(0.0): ${zeroWithDecimal.toPlainString()}")
+
+        println("zero == zeroWithDecimal:  ${zero === zeroWithDecimal}")
     }
 }
