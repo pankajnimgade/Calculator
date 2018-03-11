@@ -49,8 +49,8 @@ class MainActivityModel : IMainActivityModel {
                         memberItemList.add(lastMemberItem as MemberItem)
                     }
                     ((lastMemberItem != null) &&
-                            (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
-                            (currentCharacterMemberType == MemberType.NUMBER)) -> {
+                            (lastMemberItem as MemberItem).memberType.isNumber() &&
+                            (currentCharacterMemberType.isNumber())) -> {
                         // last    is number
                         // current is number
                         if ((lastMemberItem as MemberItem).memberString.contains(".") &&
@@ -98,23 +98,25 @@ class MainActivityModel : IMainActivityModel {
                         memberItemList.add((lastMemberItem as MemberItem))
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
+                            (lastMemberItem as MemberItem).memberType.isNumber() &&
                             currentCharacterMemberType.isDecimal() -> {
                         // last number
                         // current . (decimal)
-                        (lastMemberItem as MemberItem).memberType = MemberType.DECIMAL
-                        (lastMemberItem as MemberItem).memberString += character
+                        if (!(lastMemberItem as MemberItem).memberString.contains(".")) {
+                            (lastMemberItem as MemberItem).memberType = MemberType.DECIMAL
+                            (lastMemberItem as MemberItem).memberString += character
+                        }
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType.isDecimal() &&
-                            currentCharacterMemberType == MemberType.NUMBER -> {
+                            currentCharacterMemberType.isNumber() -> {
                         // last . (decimal)
                         // current number
                         (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
                         (lastMemberItem as MemberItem).memberString += character
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType == MemberType.DECIMAL &&
+                            (lastMemberItem as MemberItem).memberType.isDecimal() &&
                             currentCharacterMemberType.isOperator() -> {
                         // last . (decimal)
                         // current operators ( +, -, *, and /)

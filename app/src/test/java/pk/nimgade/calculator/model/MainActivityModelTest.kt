@@ -212,4 +212,32 @@ class MainActivityModelTest {
         }
         println(model.calculateOrCompute())
     }
+
+    @Test
+    fun testMultiTextInput() {
+        val inputList = mutableListOf("12/1*24-64+56.31+1",
+                "0.2*54/54*5-64.6/.",
+                "0*5",
+                "0/5",
+                "0-5",
+                "0+5",
+                "215.21*5",
+                "2.0.5 +1",
+                "2.0*5",
+                ".*5",
+                "/*5",
+                "3.24+6",
+                "6*6-6",
+                "-6/*43.2.+.-",
+                "/*43.2.+.-*/535",
+                "3.24+6*6-6/*43.2.+.-*/535")
+
+        for (inputText in inputList) {
+            model.clear()
+            for (char in inputText) {
+                model.addCharacter(character = char.toString())
+            }
+            println(model.calculateOrCompute())
+        }
+    }
 }
