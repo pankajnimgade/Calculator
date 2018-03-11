@@ -1,6 +1,7 @@
 package pk.nimgade.calculator.model
 
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -13,6 +14,34 @@ import java.util.*
  * Created by Pankaj Nimgade on 12/21/2017.
  */
 class MainActivityModelTest {
+
+    private val model = MainActivityModel()
+
+
+    @Before
+    fun setUp() {
+        val presenter = mock(IMainActivityPresenter::class.java)
+        Mockito.`when`(presenter.clearAll()).then { println("Clear All") }
+        Mockito.`when`(presenter.setView(mock(IMainActivityView::class.java))).then {
+            ("SetView")
+        }
+        Mockito.`when`(presenter.clearAll()).then { println("Clear All") }
+        Mockito.`when`(presenter.deleteLastCharacter()).then { println("deleteLastCharacter") }
+        Mockito.`when`(presenter.setUpdatedInput("")).then {
+
+            ("setUpdatedInput")
+        }
+        Mockito.`when`(presenter.inputCharacter("")).then {
+            println("input String")
+        }
+        Mockito.`when`(presenter.divideByZeroOccurred("")).then {
+
+            ("divide by zero occurred")
+        }
+        model.setPresenter(presenter)
+    }
+
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
@@ -22,9 +51,8 @@ class MainActivityModelTest {
     fun checkEquationAtEveryStep() {
 
         val listOfInputText = arrayListOf("12-", "123*", "61+00", "/745", "18*")
-
+        model.clear()
         for (text in listOfInputText) {
-            val model: IMainActivityModel = MainActivityModel()
             println(text)
             for (character in text) {
                 model.addCharacter(character.toString())
@@ -48,7 +76,6 @@ class MainActivityModelTest {
 
         for (text in listOfEquationText) {
             println(text)
-            val model = MainActivityModel()
             model.clear()
             for (_char in text.toCharArray()) {
                 model.addCharacter(_char + "")
@@ -61,8 +88,8 @@ class MainActivityModelTest {
     @Test
     fun testEquateAddition() {
         println("MainActivityModelAndroidTest")
-        val model = MainActivityModel()
         val input = "123 + 321"
+        model.clear()
         for (char in input) {
             model.addCharacter(char.toString())
         }
@@ -111,5 +138,78 @@ class MainActivityModelTest {
         println("BigDecimal(0.0): ${zeroWithDecimal.toPlainString()}")
 
         println("zero == zeroWithDecimal:  ${zero === zeroWithDecimal}")
+    }
+
+    @Test
+    fun testCheckForDivideByZeroDecimal() {
+        println("testCheckForDivideByZero")
+
+        val input = "123 / 0.0"
+        model.clear()
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        val calculateOrCompute = model.calculateOrCompute()
+        println(calculateOrCompute)
+    }
+
+    @Test
+    fun testAddPeriod() {
+        model.clear()
+        val input = "1 + ."
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
+    }
+
+    @Test
+    fun testSubtractPeriod() {
+        model.clear()
+        val input = "1 + ."
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
+    }
+
+    @Test
+    fun testMultiplyPeriod() {
+        model.clear()
+        val input = "1 * ."
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
+    }
+
+    @Test
+    fun testDividePeriod() {
+        model.clear()
+        val input = "1 / ."
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
+    }
+
+    @Test
+    fun testInputTextWithDecimal() {
+        model.clear()
+        val input = "1 . 3"
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
+    }
+
+    @Test
+    fun testInputTextWithOperatorAfterDecimal() {
+        model.clear()
+        val input = "3 . + 2"
+        for (char in input) {
+            model.addCharacter(char.toString())
+        }
+        println(model.calculateOrCompute())
     }
 }

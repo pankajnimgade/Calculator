@@ -61,14 +61,14 @@ class MainActivityModel : IMainActivityModel {
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
-                            currentCharacterMemberType != MemberType.NUMBER -> {
+                            currentCharacterMemberType.isOperator() -> {
                         // last  is number
                         // current  is ( '/', '*', '-', '+' )
                         lastMemberItem = MemberItem(currentCharacterMemberType, character)
                         memberItemList.add((lastMemberItem as MemberItem))
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
+                            (lastMemberItem as MemberItem).memberType.isOperator() &&
                             (lastMemberItem as MemberItem).memberType == MemberType.SUBTRACTION &&
                             currentCharacterMemberType == MemberType.NUMBER -> {
                         // last is subtraction
@@ -77,10 +77,9 @@ class MainActivityModel : IMainActivityModel {
                         (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
                         (lastMemberItem as MemberItem).memberString += character
                         memberItemList.add(memberItemList.size - 1, MemberItem(MemberType.ADDITION, ""))
-
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
+                            (lastMemberItem as MemberItem).memberType.isOperator() &&
                             ((lastMemberItem as MemberItem).memberType == MemberType.MULTIPLICATION ||
                                     (lastMemberItem as MemberItem).memberType == MemberType.DIVISION) &&
                             currentCharacterMemberType == MemberType.SUBTRACTION -> {
@@ -90,7 +89,7 @@ class MainActivityModel : IMainActivityModel {
                         memberItemList.add((lastMemberItem as MemberItem))
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType != MemberType.NUMBER &&
+                            (lastMemberItem as MemberItem).memberType.isOperator() &&
                             (lastMemberItem as MemberItem).memberType != MemberType.SUBTRACTION &&
                             currentCharacterMemberType == MemberType.NUMBER -> {
                         // last ( '*' , '/' )
@@ -100,19 +99,28 @@ class MainActivityModel : IMainActivityModel {
                     }
                     lastMemberItem != null &&
                             (lastMemberItem as MemberItem).memberType == MemberType.NUMBER &&
-                            currentCharacterMemberType == MemberType.DECIMAL -> {
+                            currentCharacterMemberType.isDecimal() -> {
                         // last number
                         // current . (decimal)
                         (lastMemberItem as MemberItem).memberType = MemberType.DECIMAL
                         (lastMemberItem as MemberItem).memberString += character
                     }
                     lastMemberItem != null &&
-                            (lastMemberItem as MemberItem).memberType == MemberType.DECIMAL &&
+                            (lastMemberItem as MemberItem).memberType.isDecimal() &&
                             currentCharacterMemberType == MemberType.NUMBER -> {
                         // last . (decimal)
                         // current number
                         (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
                         (lastMemberItem as MemberItem).memberString += character
+                    }
+                    lastMemberItem != null &&
+                            (lastMemberItem as MemberItem).memberType == MemberType.DECIMAL &&
+                            currentCharacterMemberType.isOperator() -> {
+                        // last . (decimal)
+                        // current operators ( +, -, *, and /)
+                        (lastMemberItem as MemberItem).memberType = MemberType.NUMBER
+                        (lastMemberItem as MemberItem).memberString += "0"
+                        memberItemList.add(MemberItem(currentCharacterMemberType, character))
                     }
                 }
             }
@@ -139,13 +147,16 @@ class MainActivityModel : IMainActivityModel {
             character == '/' -> {
                 memberType = MemberType.DIVISION
             }
+            character == '.' -> {
+                memberType = MemberType.DECIMAL
+            }
         }
         return memberType
     }
 
     override fun calculateOrCompute(): String? {
         var result: String? = null
-        checkEquationText()
+        removeUnwantedMemberTypesFromEquation()
         lastInputEquationText = getEquationFromInputText()
         println()
         if (memberItemList.isNotEmpty()) {
@@ -186,7 +197,10 @@ class MainActivityModel : IMainActivityModel {
         return (0 until memberItemList.size)
                 .filter { (memberItemList[it].memberType == MemberType.DIVISION) }
                 .map { it + 1 }
-                .any { it >= 0 && it < memberItemList.size && memberItemList[it].bigNumber == BigDecimal.ZERO }
+                .any {
+                    it >= 0 && it < memberItemList.size &&
+                            memberItemList[it].bigNumber!!.compareTo(BigDecimal.ZERO) == 0
+                }
     }
 
 
@@ -244,16 +258,25 @@ class MainActivityModel : IMainActivityModel {
     }
 
 
-    private fun checkEquationText() {
+    private fun removeUnwantedMemberTypesFromEquation() {
         if (memberItemList.isNotEmpty()) {
-            if (memberItemList.last().memberType != MemberType.NUMBER) {
-                memberItemList.removeAt(memberItemList.size - 1)
-            }
+            do {
+                if (!memberItemList.first().memberType.isNumber()) {
+                    memberItemList.removeAt(0)
+                } else {
+                    break
+                }
+            } while (memberItemList.isNotEmpty())
+
         }
         if (memberItemList.isNotEmpty()) {
-            if (memberItemList.first().memberType != MemberType.NUMBER) {
-                memberItemList.removeAt(0)
-            }
+            do {
+                if (!memberItemList.last().memberType.isNumber()) {
+                    memberItemList.removeAt(memberItemList.size - 1)
+                } else {
+                    break
+                }
+            } while (memberItemList.isNotEmpty())
         }
     }
 
