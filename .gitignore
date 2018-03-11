@@ -6,3 +6,6 @@
 /build
 /captures
 .externalNativeBuild
+/keystore
+/app/release
+/release
