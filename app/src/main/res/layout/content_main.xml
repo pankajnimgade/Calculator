@@ -65,7 +65,7 @@
                     android:gravity="bottom|end"
                     android:maxLines="1"
                     android:scrollIndicators="right"
-                    android:text="@string/testHorizontalScroll" />
+                    android:text="" />
             </HorizontalScrollView>
 
 
@@ -86,7 +86,7 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="bottom|end"
                     android:maxLines="1"
-                    android:text="1236871236987123698741236987412369874103698741236987412366369636963+++"
+                    android:text=""
                     android:textAllCaps="false" />
             </HorizontalScrollView>
 
