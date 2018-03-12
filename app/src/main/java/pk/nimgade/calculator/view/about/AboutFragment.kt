@@ -31,13 +31,13 @@ class AboutFragment : DialogFragment() {
         // Inflate the layout for this fragment
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val view = inflater.inflate(R.layout.fragment_about, container, false)
-//        closeButton = view.findViewById(R.id.AboutFragment_close_button)
+        closeButton = view.findViewById(R.id.AboutFragment_close_button)
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        closeButton.setOnClickListener { dialog.dismiss() }
+        closeButton.setOnClickListener { dialog.dismiss() }
     }
 
 }// Required empty public constructor

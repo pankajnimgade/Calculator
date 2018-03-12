@@ -33,7 +33,7 @@ class MainActivity : SuperMain(), IMainActivityView {
 
     private var lastCharacter: Char? = null
 
-    private lateinit var snackbar: Snackbar
+    private lateinit var snackBar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +44,19 @@ class MainActivity : SuperMain(), IMainActivityView {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-        snackbar = Snackbar.make(findViewById(R.id.MainActivity_root_layout_CoordinatorLayout), "",
+        snackBar = Snackbar.make(findViewById(R.id.MainActivity_root_layout_CoordinatorLayout), "",
                 Snackbar.LENGTH_SHORT)
         initializeUI()
     }
 
     private fun initializeUI() {
         historyRecyclerView = findViewById(R.id.MainActivity_history_recyclerView)
+        inputEquationDisplayHorizontalScrollView = findViewById(R.id.MainActivity_InputEquation_HorizontalScrollView)
         inputEquationDisplayTextView = findViewById(R.id.MainActivity_InputEquation_textView)
+        inputEquationDisplayTextView.isSelected = true
+        inputOutputDisplayHorizontalScrollView = findViewById(R.id.MainActivity_inputOutputDisplay_HorizontalScrollView)
         inputOutputDisplayTextView = findViewById(R.id.MainActivity_inputOutputDisplay_textView)
+        inputOutputDisplayTextView.isSelected = true
 
         _0_Button = findViewById(R.id.MainActivity_0_button)
         _1_Button = findViewById(R.id.MainActivity_1_button)
@@ -193,7 +197,7 @@ class MainActivity : SuperMain(), IMainActivityView {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.MainActivity_menu_about -> {
-                val aboutFragment:DialogFragment = AboutFragment.newInstance()
+                val aboutFragment: DialogFragment = AboutFragment.newInstance()
                 aboutFragment.show(fragmentManager.beginTransaction(), "About-Dialog")
                 true
             }
@@ -210,12 +214,24 @@ class MainActivity : SuperMain(), IMainActivityView {
         this.presenter.deleteLastCharacter()
     }
 
+    override fun setInputEquationTextData(inputData: String?) {
+        inputEquationDisplayTextView.text = inputData
+        inputEquationDisplayHorizontalScrollView.post {
+            inputEquationDisplayHorizontalScrollView
+                    .fullScroll(View.FOCUS_RIGHT)
+        }
+    }
+
     /**
      * Use this for the equation
      * @param inputData for the equation
      * */
     override fun setInputData(inputData: String?) {
         inputOutputDisplayTextView.text = inputData
+        inputOutputDisplayHorizontalScrollView.post {
+            inputOutputDisplayHorizontalScrollView
+                    .fullScroll(View.FOCUS_RIGHT)
+        }
     }
 
     /**
@@ -225,16 +241,19 @@ class MainActivity : SuperMain(), IMainActivityView {
     override fun setOutputResult(outputResult: String?) {
         Log.d(TAG, "setOutputResult(): $outputResult")
         inputOutputDisplayTextView.text = outputResult
-    }
+        inputOutputDisplayHorizontalScrollView.post {
+            inputOutputDisplayHorizontalScrollView.fullScroll(View.FOCUS_RIGHT)
+        }
 
-    override fun setInputEquationTextData(inputData: String?) {
-        inputEquationDisplayTextView.text = inputData
     }
 
     override fun showErrorMessage(errorMessage: String?) {
         Log.d(TAG, "$errorMessage: $errorMessage")
         inputOutputDisplayTextView.text = "$errorMessage"
-        snackbar.setText("$errorMessage").show()
+        snackBar.setText("$errorMessage").show()
+        inputOutputDisplayHorizontalScrollView.post {
+            inputOutputDisplayHorizontalScrollView.fullScroll(View.FOCUS_RIGHT)
+        }
     }
 
     override fun lastComputationEquation(lastComputationEquation: String?) {

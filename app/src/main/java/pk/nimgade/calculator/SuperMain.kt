@@ -3,6 +3,7 @@ package pk.nimgade.calculator
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.widget.Button
+import android.widget.HorizontalScrollView
 import android.widget.TextView
 
 /**
@@ -10,7 +11,9 @@ import android.widget.TextView
  */
 open class SuperMain : AppCompatActivity() {
     protected lateinit var historyRecyclerView: RecyclerView
+    protected lateinit var inputOutputDisplayHorizontalScrollView: HorizontalScrollView
     protected lateinit var inputOutputDisplayTextView: TextView
+    protected lateinit var inputEquationDisplayHorizontalScrollView: HorizontalScrollView
     protected lateinit var inputEquationDisplayTextView: TextView
 
     protected lateinit var _0_Button: Button

@@ -7,4 +7,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description">A test calculator supports addition, subtraction, multiplication and division</string>
+    <string name="testHorizontalScroll">111111111222222223333333444444555555556666667777777</string>
 </resources>

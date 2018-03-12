@@ -42,30 +42,54 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/MainActivity_history_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@android:color/white" />
 
-            <TextView
-                android:id="@+id/MainActivity_InputEquation_textView"
-                style="@style/InputEquationTextDisplay"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left|bottom"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="left|bottom"
-                android:text="" />
+            <HorizontalScrollView
+                android:id="@+id/MainActivity_InputEquation_HorizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:scrollIndicators="right"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/MainActivity_InputEquation_textView"
+                    style="@style/InputEquationTextDisplay"
+                    android:layout_gravity="bottom|start"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="bottom|end"
+                    android:maxLines="1"
+                    android:scrollIndicators="right"
+                    android:text="@string/testHorizontalScroll" />
+            </HorizontalScrollView>
 
 
-            <TextView
-                android:id="@+id/MainActivity_inputOutputDisplay_textView"
-                style="@style/InputTextDisplay"
-                android:layout_width="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="right|bottom"
-                android:text=""
-                android:textAllCaps="false" />
+            <HorizontalScrollView
+                android:id="@+id/MainActivity_inputOutputDisplay_HorizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:foregroundGravity="left"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/MainActivity_inputOutputDisplay_textView"
+                    style="@style/InputTextDisplay"
+                    android:layout_gravity="bottom|end"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="bottom|end"
+                    android:maxLines="1"
+                    android:text="1236871236987123698741236987412369874103698741236987412366369636963+++"
+                    android:textAllCaps="false" />
+            </HorizontalScrollView>
+
         </LinearLayout>
 
         <View
@@ -73,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/blueColorTransparent"
+            android:contentDescription="Use to show clear animation"
             android:visibility="invisible" />
     </FrameLayout>
 
